@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "no-console": 1,
+    "no-undef": 2,
+    "quotes": [1, "single", { "allowTemplateLiterals": true }],
+    "eol-last": 1,
+    "space-before-blocks": [1, "always"],
+    "space-before-function-paren": ["error", "always"],
+    "semi": ["error", "never"],
+    "indent": [1, 2, {"SwitchCase": 1}],
+    "curly": 1,
+    "comma-dangle": ["error", "always-multiline"],
+    "arrow-parens": 0,
+    "no-else-return": "error"
+  }
+}
