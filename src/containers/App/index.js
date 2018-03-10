@@ -7,8 +7,9 @@ import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 import React from 'react'
 import {Provider} from 'react-redux'
+
 import store from 'store'
-import Button from 'components/Button'
+import SubmitBar from 'containers/App/SubmitBar'
 
 const wsLink = new WebSocketLink({
   uri: 'wss://subscriptions.graph.cool/v1/cjebgvb1b31q90166j61wwlp7',
@@ -36,6 +37,6 @@ const client = new ApolloClient({
 export default () =>
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <Button />
+      <SubmitBar />
     </Provider>
   </ApolloProvider>

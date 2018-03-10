@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input component snapshot renders the input 1`] = `
+<div>
+  <label
+    htmlFor="textField"
+  >
+    test label
+  </label>
+  <input
+    id="textField"
+    type="text"
+  />
+</div>
+`;
