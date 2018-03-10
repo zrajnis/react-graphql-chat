@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'babel-polyfill',
-    'webpack-dev-server/client?http://0.0.0.0:7000',
+    'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
     path.join(__dirname, 'src/index.js'),
@@ -78,21 +78,6 @@ module.exports = {
           },
         ],
       }),
-    }, {
-      test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-      use: 'url-loader?limit=10000&mimetype=application/font-woff',
-    }, {
-      test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-      use: 'url-loader?limit=10000&mimetype=application/font-woff',
-    }, {
-      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      use: 'url-loader?limit=10000&mimetype=application/octet-stream',
-    }, {
-      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      use: 'file-loader',
-    }, {
-      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      use: 'url-loader?limit=10000&mimetype=image/svg+xml',
     }],
   },
 }
