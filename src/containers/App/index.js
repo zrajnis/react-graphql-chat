@@ -9,7 +9,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import store from 'store'
-import SubmitBar from 'containers/App/SubmitBar'
+import Chat from 'containers/App/Chat'
 
 const wsLink = new WebSocketLink({
   uri: 'wss://subscriptions.graph.cool/v1/cjebgvb1b31q90166j61wwlp7',
@@ -37,6 +37,6 @@ const client = new ApolloClient({
 export default () =>
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <SubmitBar />
+      <Chat />
     </Provider>
   </ApolloProvider>

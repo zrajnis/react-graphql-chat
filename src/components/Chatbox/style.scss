@@ -1,0 +1,12 @@
+.chat-message {
+  background: $blue;
+  color: $white;
+  font-size: 18px;
+  padding: 15px;
+  margin: 15px 0;
+
+  p {
+    display: inline-block;
+    margin: 0 0 0 10px;
+  }
+}
