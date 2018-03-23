@@ -3,7 +3,7 @@ import { graphql, compose } from 'react-apollo'
 
 import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION } from 'queries/chat'
 import Chatbox from 'components/Chatbox'
-import SubmitBar from 'containers/App/SubmitBar'
+import SubmitBar from 'containers/SubmitBar'
 
 class Chat extends Component {
   constructor (props) {
