@@ -20,3 +20,16 @@ export const CREATE_MESSAGE_MUTATION = gql`
     }
   }
 `
+
+export const SUBSCRIBE_TO_NEW_MESSAGES = gql`
+  subscription {
+    Message(filter: { mutation_in: [CREATED] }) {
+      node {
+        id
+        from
+        content
+        createdAt
+      }
+    }
+  }
+`

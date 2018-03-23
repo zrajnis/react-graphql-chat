@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 
-import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION } from 'queries/chat'
+import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION, SUBSCRIBE_TO_NEW_MESSAGES } from 'queries/chat'
 import Chatbox from 'components/Chatbox'
 import SubmitBar from 'containers/SubmitBar'
 
@@ -30,9 +30,27 @@ class Chat extends Component {
     return false
   }
 
+  subscribeToNewMessages () {
+    this.props.allMessagesQuery.subscribeToMore({
+      document: SUBSCRIBE_TO_NEW_MESSAGES,
+      updateQuery: (previous, { subscriptionData }) => {
+        const newMessageLinks = [
+          ...previous.allMessages,
+          subscriptionData.data.Message.node,
+        ]
+        const result = {
+          ...previous,
+          allMessages: newMessageLinks,
+        }
+        return result
+      },
+    })
+  }
+
   componentDidMount () {
     const from = window.prompt('username')
     from && this.setState({from})
+    this.subscribeToNewMessages()
   }
 
   render () {
