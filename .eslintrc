@@ -18,6 +18,7 @@
     "curly": 1,
     "comma-dangle": ["error", "always-multiline"],
     "arrow-parens": 0,
-    "no-else-return": "error"
+    "no-else-return": "error",
+    "object-curly-spacing": ["error", "always"]
   }
 }

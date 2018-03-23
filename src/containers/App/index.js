@@ -19,8 +19,8 @@ const httpLink = new HttpLink({
   uri: 'https://api.graph.cool/simple/v1/cjebgvb1b31q90166j61wwlp7',
 })
 const link = split(
-  ({query}) => {
-    const {kind, operation} = getMainDefinition(query)
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query)
     return kind === 'OperationDefinition' && operation === 'subscription'
   },
   wsLink,

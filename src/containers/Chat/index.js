@@ -17,7 +17,7 @@ class Chat extends Component {
   }
 
   handleChange (e) {
-    this.setState({content: e.target.value})
+    this.setState({ content: e.target.value })
   }
 
   async handleSubmit (e) {
@@ -49,7 +49,7 @@ class Chat extends Component {
 
   componentDidMount () {
     const from = window.prompt('username')
-    from && this.setState({from})
+    from && this.setState({ from })
     this.subscribeToNewMessages()
   }
 
@@ -71,6 +71,6 @@ class Chat extends Component {
 }
 
 export default compose(
-  graphql(ALL_MESSAGES_QUERY, {name: 'allMessagesQuery'}),
-  graphql(CREATE_MESSAGE_MUTATION, {name: 'createMessageMutation'})
+  graphql(ALL_MESSAGES_QUERY, { name: 'allMessagesQuery' }),
+  graphql(CREATE_MESSAGE_MUTATION, { name: 'createMessageMutation' })
 )(Chat)
