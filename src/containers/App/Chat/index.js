@@ -12,27 +12,22 @@ class Chat extends Component {
       from: 'anonymous',
       content: '',
     }
-    this.submitMessage = this.submitMessage.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleEnterSubmit = this.handleEnterSubmit.bind(this)
   }
 
   handleChange (e) {
     this.setState({content: e.target.value})
   }
 
-  async submitMessage () {
+  async handleSubmit (e) {
+    e.preventDefault()
     const { content, from } = this.state
     await this.props.createMessageMutation({
       variables: { content, from },
     })
     this.setState({ content: '' })
-  }
-
-  handleEnterSubmit (e) {
-    if (e.key === 'Enter') {
-      this.submitMessage()
-    }
+    return false
   }
 
   componentDidMount () {
@@ -51,7 +46,7 @@ class Chat extends Component {
           ))}
         </div>
         <SubmitBar handleChange={this.handleChange} 
-          handleEnterSubmit={this.handleEnterSubmit} inputVal={this.state.content} handleClickSubmit={this.submitMessage}/>
+          inputVal={this.state.content} handleSubmit={this.handleSubmit}/>
       </div>
     )
   }
