@@ -1,16 +1,37 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 
-import {ALL_MESSAGES_QUERY} from 'queries/chat'
+import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION } from 'queries/chat'
 import Chatbox from 'components/Chatbox'
 import SubmitBar from 'containers/App/SubmitBar'
 
 class Chat extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       from: 'anonymous',
       content: '',
+    }
+    this.submitMessage = this.submitMessage.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleEnterSubmit = this.handleEnterSubmit.bind(this)
+  }
+
+  handleChange (e) {
+    this.setState({content: e.target.value})
+  }
+
+  async submitMessage () {
+    const { content, from } = this.state
+    await this.props.createMessageMutation({
+      variables: { content, from },
+    })
+    this.setState({ content: '' })
+  }
+
+  handleEnterSubmit (e) {
+    if (e.key === 'Enter') {
+      this.submitMessage()
     }
   }
 
@@ -29,10 +50,14 @@ class Chat extends Component {
             <Chatbox key={message.id} message={message} />
           ))}
         </div>
-        <SubmitBar />
+        <SubmitBar handleChange={this.handleChange} 
+          handleEnterSubmit={this.handleEnterSubmit} inputVal={this.state.content} handleClickSubmit={this.submitMessage}/>
       </div>
     )
   }
 }
 
-export default graphql(ALL_MESSAGES_QUERY, {name: 'allMessagesQuery'})(Chat)
+export default compose(
+  graphql(ALL_MESSAGES_QUERY, {name: 'allMessagesQuery'}),
+  graphql(CREATE_MESSAGE_MUTATION, {name: 'createMessageMutation'})
+)(Chat)

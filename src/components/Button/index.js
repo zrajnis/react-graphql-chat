@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = props => {
+const Button = ({ id, children, ...rest }) => {
   return (
-    <button id={props.id}>
-      {props.children}
+    <button id={id} {...rest}>
+      {children}
     </button>
   )
 }
