@@ -85,9 +85,6 @@ module.exports = {
       template: './src/index.tpl.html',
       filename: './index.html',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
     new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     new webpack.optimize.CommonsChunkPlugin('common'),
     new webpack.optimize.UglifyJsPlugin({

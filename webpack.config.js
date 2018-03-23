@@ -30,9 +30,6 @@ module.exports = {
       template: path.join(__dirname, 'src/index.tpl.html'),
       filename: 'index.html',
     }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
-    }),
     new ExtractTextPlugin('[name].css', { allChunks: true }),
   ],
   module: {
