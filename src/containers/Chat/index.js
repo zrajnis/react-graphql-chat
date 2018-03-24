@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 
 import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION, SUBSCRIBE_TO_NEW_MESSAGES } from 'queries/chat'
-import Chatbox from 'components/Chatbox'
-import SubmitBar from 'containers/SubmitBar'
+import MessageBox from 'components/MessageBox'
+import SubmitBar from 'components/SubmitBar'
+import './style.scss'
 
 class Chat extends Component {
   constructor (props) {
@@ -13,11 +14,16 @@ class Chat extends Component {
       content: '',
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleContentChange = this.handleContentChange.bind(this)
+    this.handleNameChange = this.handleNameChange.bind(this)
   }
 
-  handleChange (e) {
+  handleContentChange (e) {
     this.setState({ content: e.target.value })
+  }
+
+  handleNameChange (e) {
+    this.setState({ from: e.target.value })
   }
 
   async handleSubmit (e) {
@@ -47,24 +53,35 @@ class Chat extends Component {
     })
   }
 
+  scrollToBottom () {
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
+  }  
+
   componentDidMount () {
     const from = window.prompt('username')
     from && this.setState({ from })
     this.subscribeToNewMessages()
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate () {
+    this.scrollToBottom()
   }
 
   render () {
     const allMessages = this.props.allMessagesQuery.allMessages || []
     return (
-      <div className="chat">
-        <div className="container">
+      <div styleName='chat'>
+        <div styleName='message-container'>
           <h1>React GraphQL Chat</h1>
           {allMessages.map(message => (
-            <Chatbox key={message.id} message={message} />
+            <MessageBox key={message.id} message={message} />
           ))}
         </div>
-        <SubmitBar handleChange={this.handleChange} 
-          inputVal={this.state.content} handleSubmit={this.handleSubmit}/>
+        <SubmitBar handleChange={this.handleContentChange} 
+          inputVal={this.state.content} handleSubmit={this.handleSubmit}
+          error={false} />
+        <div ref={(el) => { this.messagesEnd = el }}></div>
       </div>
     )
   }
