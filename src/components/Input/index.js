@@ -6,9 +6,7 @@ const Input = props => {
 
   return (
     <div>
-      <label htmlFor={id}>
-        {label}
-      </label>
+      <label htmlFor={id}> {label} </label>
       <input id={id} {...rest} />
     </div>
   )

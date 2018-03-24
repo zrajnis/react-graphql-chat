@@ -2,15 +2,17 @@ import React from 'react'
 
 import Button from 'components/Button'
 import Input from 'components/Input'
+import ErrorMsg from 'components/ErrorMsg'
 import './style.scss'
 
-const SubmitBar = ({ inputVal, handleChange, handleSubmit, error, errorMsg }) => {
+const SubmitBar = ({ inputVal, label, handleChange, handleSubmit, error, errorMsg, buttonText }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Input id='textField' label='Insert a text message' type='text' value={inputVal} onChange={handleChange} />
-        <Button id='sendBtn' type='submit'> Send </Button>
-        {error && <label for="textField" styleName='error-msg'>{errorMsg}</label>}
+        <Input id='textField' label={label} type='text' value={inputVal}
+          onChange={handleChange} />
+        {error && <ErrorMsg > {errorMsg} </ErrorMsg>}
+        <Button id='sendBtn' type='submit'> {buttonText} </Button>
       </form>
     </div>
   )

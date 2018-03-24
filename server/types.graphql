@@ -4,3 +4,8 @@ type Message @model {
   content: String!
   createdAt: DateTime!
 }
+
+type User @model {
+  id: ID! @isUnique
+  name: String! @isUnique
+}

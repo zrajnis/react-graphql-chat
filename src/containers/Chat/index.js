@@ -2,20 +2,41 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 
 import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION, SUBSCRIBE_TO_NEW_MESSAGES } from 'queries/chat'
+import { DELETE_USER_MUTATION } from 'queries/user'
 import MessageBox from 'components/MessageBox'
 import SubmitBar from 'components/SubmitBar'
+import Landing from 'containers/Landing'
 import './style.scss'
 
 class Chat extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      from: 'anonymous',
+      from: '',
       content: '',
+      loggedIn: false,
+      id: null,
     }
+
+    this.deleteUser = this.deleteUser.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
+    this.logUserIn = this.logUserIn.bind(this)
+  }
+
+  async deleteUser () {
+    const { id } = this.state
+    id && await this.props.deleteUserMutation({
+      variables: { id },
+    })
+  }
+
+  logUserIn (id) {
+    this.setState({ 
+      id,
+      loggedIn: true,
+    })
   }
 
   handleContentChange (e) {
@@ -33,7 +54,10 @@ class Chat extends Component {
       variables: { content, from },
     })
     this.setState({ content: '' })
-    return false
+  }
+
+  scrollToBottom () {
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
   }
 
   subscribeToNewMessages () {
@@ -53,41 +77,44 @@ class Chat extends Component {
     })
   }
 
-  scrollToBottom () {
-    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
-  }  
-
   componentDidMount () {
-    const from = window.prompt('username')
-    from && this.setState({ from })
+    window.addEventListener('beforeunload', this.deleteUser)
     this.subscribeToNewMessages()
-    this.scrollToBottom()
   }
 
   componentDidUpdate () {
-    this.scrollToBottom()
+    this.state.loggedIn && this.scrollToBottom()
+  }
+
+  componentWillUnmount () {
+    this.deleteUser()
+    window.removeEventListener('beforeunload', this.deleteUser)
   }
 
   render () {
     const allMessages = this.props.allMessagesQuery.allMessages || []
     return (
-      <div styleName='chat'>
-        <div styleName='message-container'>
-          <h1>React GraphQL Chat</h1>
-          {allMessages.map(message => (
-            <MessageBox key={message.id} message={message} />
-          ))}
+      this.state.loggedIn ?
+        <div styleName='chat'>
+          <div styleName='message-container'>
+            <h1>React GraphQL Chat</h1>
+            {allMessages.map(message => (
+              <MessageBox key={message.id} message={message} />
+            ))}
+          </div>
+          <SubmitBar handleChange={this.handleContentChange} label='Insert a text message'
+            inputVal={this.state.content} handleSubmit={this.handleSubmit}
+            error={false} buttonText='Send'/>
+          <div ref={(el) => { this.messagesEnd = el }}></div>
         </div>
-        <SubmitBar handleChange={this.handleContentChange} 
-          inputVal={this.state.content} handleSubmit={this.handleSubmit}
-          error={false} />
-        <div ref={(el) => { this.messagesEnd = el }}></div>
-      </div>
+        :
+        <Landing name={this.state.from} handleChange={this.handleNameChange} logUserIn={this.logUserIn} />
     )
   }
 }
 
 export default compose(
   graphql(ALL_MESSAGES_QUERY, { name: 'allMessagesQuery' }),
+  graphql(DELETE_USER_MUTATION, { name: 'deleteUserMutation' }),
   graphql(CREATE_MESSAGE_MUTATION, { name: 'createMessageMutation' })
 )(Chat)
