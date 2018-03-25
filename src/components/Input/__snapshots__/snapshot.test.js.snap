@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input component snapshot renders the input 1`] = `
-<div>
+<div
+  className="input-container--316X5DI-"
+>
   <label
     htmlFor="textField"
   >
@@ -10,6 +12,7 @@ exports[`Input component snapshot renders the input 1`] = `
      
   </label>
   <input
+    className="input--3L2xwewm"
     id="textField"
     type="text"
   />

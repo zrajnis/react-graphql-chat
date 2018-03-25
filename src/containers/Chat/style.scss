@@ -1,7 +1,12 @@
 .chat {
-  margin: 0;
+  margin:  30px auto 30px;
+  width: 720px;
 
   .message-container {
     margin: 0;
+  }
+
+  label {
+    display: none;
   }
 }

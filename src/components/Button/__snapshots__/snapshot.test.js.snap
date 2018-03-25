@@ -2,6 +2,7 @@
 
 exports[`Button component snapshot renders the button 1`] = `
 <button
+  className="button--3j7htfnZ"
   id="submitBtn"
 >
    Test text 

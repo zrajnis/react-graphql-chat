@@ -1,0 +1,17 @@
+.landing-container {
+  height: 180px;
+  margin: calc(50vh - 90px) calc(50% - 360px);
+  width: 720px;
+
+  label {
+    color: white;
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 60px;
+    font-size: 22px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+

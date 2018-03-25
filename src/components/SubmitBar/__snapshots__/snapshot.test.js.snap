@@ -5,7 +5,9 @@ exports[`Submit bar component snapshot renders the submit bar 1`] = `
   <form
     onSubmit={undefined}
   >
-    <div>
+    <div
+      className="input-container--316X5DI-"
+    >
       <label
         htmlFor="textField"
       >
@@ -14,12 +16,22 @@ exports[`Submit bar component snapshot renders the submit bar 1`] = `
          
       </label>
       <input
+        className="input--3L2xwewm"
         id="textField"
         onChange={undefined}
         type="text"
         value="testVal"
       />
     </div>
+    <button
+      className="button--3j7htfnZ"
+      id="sendBtn"
+      type="submit"
+    >
+       
+      Submit
+       
+    </button>
     <div
       className="error-msg--Gu7cE9b_"
     >
@@ -29,14 +41,6 @@ exports[`Submit bar component snapshot renders the submit bar 1`] = `
        
        
     </div>
-    <button
-      id="sendBtn"
-      type="submit"
-    >
-       
-      Submit
-       
-    </button>
   </form>
 </div>
 `;

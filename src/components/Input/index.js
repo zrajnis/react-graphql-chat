@@ -1,16 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Input = props => {
-  const { id, label, ...rest } = props
+import './style.scss'
 
-  return (
-    <div>
-      <label htmlFor={id}> {label} </label>
-      <input id={id} {...rest} />
-    </div>
-  )
-}
+const Input = ({ id, label, ...rest }) => 
+  <div styleName='input-container'>
+    <label htmlFor={id}> {label} </label>
+    <input id={id} styleName='input' {...rest} />
+  </div>
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,

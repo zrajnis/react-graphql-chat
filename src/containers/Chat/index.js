@@ -99,9 +99,8 @@ class Chat extends Component {
       this.state.loggedIn ?
         <div styleName='chat'>
           <div styleName='message-container'>
-            <h1>React GraphQL Chat</h1>
             {allMessages.map(message => (
-              <MessageBox key={message.id} message={message} />
+              <MessageBox key={message.id} message={message} myMessage={message.from === this.state.from}/>
             ))}
           </div>
           <SubmitBar handleChange={this.handleContentChange} label='Insert a text message'

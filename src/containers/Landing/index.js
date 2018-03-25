@@ -5,6 +5,8 @@ import { CREATE_USER_MUTATION, DELETE_USER_MUTATION } from 'queries/user'
 import SubmitBar from 'components/SubmitBar'
 import { setTimeout } from 'timers'
 
+import './style.scss'
+
 class Landing extends Component {
   constructor (props) {
     super(props)
@@ -33,9 +35,9 @@ class Landing extends Component {
 
   render () {
     return (
-      <div> 
+      <div styleName='landing-container'> 
         <SubmitBar handleChange={this.props.handleChange} inputVal={this.props.name} 
-          label='Choose your username.' handleSubmit={this.handleSubmit}
+          label='Choose your username' handleSubmit={this.handleSubmit}
           error={this.state.error} errorMsg='Username already taken.' buttonText='Submit'/>
       </div>
     )

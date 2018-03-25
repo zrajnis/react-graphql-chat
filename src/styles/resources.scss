@@ -1,7 +1,20 @@
-$blue: #2A4D6E;
+$black: #2b2b2b;
+$blue: #006eff;
+$bgWhite: #f2f2f2;
+$darkBlue: #004db3;
+$shadow: #b2b2b2;
 $white: whitesmoke;
 
-body {
-  margin: 0;
-  padding: 0;
+html {
+  background: $black;
+
+  body {
+    margin: 0;
+    padding: 0;
+  
+    * {
+      box-sizing: border-box;
+    }
+  }
 }
+

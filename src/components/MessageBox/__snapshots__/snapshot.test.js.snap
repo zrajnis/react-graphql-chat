@@ -2,14 +2,18 @@
 
 exports[`Message box component snapshot renders the message box 1`] = `
 <div
-  className="chat-message--3HIysaJH"
+  className="chat-message-wrapper--jPabuTv7"
 >
-  <span>
-    testUser
-    :
-  </span>
-  <p>
-    test content 123
-  </p>
+  <div
+    className="chat-message--3HIysaJH"
+  >
+    <span>
+      testUser
+      :
+    </span>
+    <p>
+      test content 123
+    </p>
+  </div>
 </div>
 `;
