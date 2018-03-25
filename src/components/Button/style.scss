@@ -1,13 +1,12 @@
 .button {
   border: none;
   background: $blue;
-  color: inherit;
-  cursor: pointer;
-  padding: 0;
   color: $white;
+  cursor: pointer;
   font-size: 22px;
-  outline: inherit;
   height: 40px;
+  padding: 0;
+  outline: inherit;
   width: 120px;
 
   &:hover {
