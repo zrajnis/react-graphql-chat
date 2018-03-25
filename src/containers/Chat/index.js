@@ -78,8 +78,14 @@ class Chat extends Component {
   }
 
   componentDidMount () {
-    window.onbeforeunload = this.deleteUser
-    window.onunload = this.deleteUser
+    window.onunload = () => {
+      this.deleteUser()
+      return 
+    }
+    window.onbeforeunload = () => {
+      this.deleteUser()
+      return 
+    }
     this.subscribeToNewMessages()
   }
 
