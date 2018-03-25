@@ -50,6 +50,11 @@ class Chat extends Component {
   async handleSubmit (e) {
     e.preventDefault()
     const { content, from } = this.state
+
+    if (!content.trim()) {
+      return
+    }
+
     await this.props.createMessageMutation({
       variables: { content, from },
     })
@@ -105,7 +110,7 @@ class Chat extends Component {
           </div>
           <SubmitBar handleChange={this.handleContentChange} label='Insert a text message'
             inputVal={this.state.content} handleSubmit={this.handleSubmit}
-            error={false} buttonText='Send'/>
+            errorMsg={false} buttonText='Send'/>
           <div ref={(el) => { this.messagesEnd = el }}></div>
         </div>
         :
