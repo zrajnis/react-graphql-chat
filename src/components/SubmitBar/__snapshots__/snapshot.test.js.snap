@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Submit bar component snapshot renders the submit bar 1`] = `
-<div>
-  <form
-    onSubmit={undefined}
-  >
+<form
+  onSubmit={undefined}
+>
+  <fieldset>
+    <legend>
+       
+       
+    </legend>
     <div
       className="input-container--316X5DI-"
     >
@@ -41,6 +45,6 @@ exports[`Submit bar component snapshot renders the submit bar 1`] = `
        
        
     </div>
-  </form>
-</div>
+  </fieldset>
+</form>
 `;

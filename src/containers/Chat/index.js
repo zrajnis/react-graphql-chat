@@ -17,7 +17,6 @@ class Chat extends Component {
       loggedIn: false,
       id: null,
     }
-
     this.deleteUser = this.deleteUser.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
@@ -100,6 +99,16 @@ class Chat extends Component {
 
   render () {
     const allMessages = this.props.allMessagesQuery.allMessages || []
+    const submitBarProps = {
+      buttonText: 'Send',
+      errorMsg: false,
+      inputVal: this.state.content,
+      label: 'Insert a text message',
+      legend: 'Insert a text message',
+      handleChange: this.handleContentChange,
+      handleSubmit: this.handleSubmit,
+    }
+
     return (
       this.state.loggedIn ?
         <div styleName='chat'>
@@ -108,9 +117,7 @@ class Chat extends Component {
               <MessageBox key={message.id} message={message} myMessage={message.from === this.state.from}/>
             ))}
           </div>
-          <SubmitBar handleChange={this.handleContentChange} label='Insert a text message'
-            inputVal={this.state.content} handleSubmit={this.handleSubmit}
-            errorMsg={false} buttonText='Send'/>
+          <SubmitBar {...submitBarProps} />
           <div ref={(el) => { this.messagesEnd = el }}></div>
         </div>
         :

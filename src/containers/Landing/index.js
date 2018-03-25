@@ -17,8 +17,8 @@ class Landing extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  showError (msg) {
-    this.setState({ errorMsg: msg })
+  showError (errorMsg) {
+    this.setState({ errorMsg })
     setTimeout(() => this.setState({ errorMsg: null }), 2000)
   }
 
@@ -57,11 +57,19 @@ class Landing extends Component {
   }
 
   render () {
+    const submitBarProps = {
+      buttonText: 'Submit',
+      errorMsg: this.state.errorMsg,
+      inputVal: this.props.name,
+      label: 'Choose your username',
+      legend: 'Insert username',
+      handleChange: this.props.handleChange,
+      handleSubmit: this.handleSubmit,
+    }
+
     return (
-      <div styleName='landing-container'> 
-        <SubmitBar handleChange={this.props.handleChange} inputVal={this.props.name} 
-          label='Choose your username' handleSubmit={this.handleSubmit}
-          errorMsg={this.state.errorMsg} buttonText='Submit'/>
+      <div styleName='landing-container'>
+        <SubmitBar {...submitBarProps}/>
       </div>
     )
   }
