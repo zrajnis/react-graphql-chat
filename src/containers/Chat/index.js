@@ -78,17 +78,13 @@ class Chat extends Component {
   }
 
   componentDidMount () {
-    window.addEventListener('beforeunload', this.deleteUser)
+    window.onbeforeunload = this.deleteUser
+    window.onunload = this.deleteUser
     this.subscribeToNewMessages()
   }
 
   componentDidUpdate () {
     this.state.loggedIn && this.scrollToBottom()
-  }
-
-  componentWillUnmount () {
-    this.deleteUser()
-    window.removeEventListener('beforeunload', this.deleteUser)
   }
 
   render () {
