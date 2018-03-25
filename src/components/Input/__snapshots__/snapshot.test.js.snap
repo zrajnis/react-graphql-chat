@@ -5,7 +5,9 @@ exports[`Input component snapshot renders the input 1`] = `
   <label
     htmlFor="textField"
   >
+     
     test label
+     
   </label>
   <input
     id="textField"

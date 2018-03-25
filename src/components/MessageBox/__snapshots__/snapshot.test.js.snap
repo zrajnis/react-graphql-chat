@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message box component snapshot renders the message box 1`] = `
+<div
+  className="chat-message--3HIysaJH"
+>
+  <span>
+    testUser
+    :
+  </span>
+  <p>
+    test content 123
+  </p>
+</div>
+`;

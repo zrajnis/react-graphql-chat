@@ -58,6 +58,7 @@
   },
   "jest": {
     "cacheDirectory": "./.test/cache",
+    "moduleNameMapper": { "\\.(css|scss)$": "<rootDir>/styleMock.js" },
     "collectCoverage": true,
     "collectCoverageFrom": [
       "**/src/**.js",

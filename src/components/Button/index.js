@@ -10,11 +10,7 @@ const Button = ({ id, children, ...rest }) => {
 }
 
 Button.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.element,
-  ]).isRequired,
+  children: PropTypes.any.isRequired,
   id: PropTypes.string,
 }
 

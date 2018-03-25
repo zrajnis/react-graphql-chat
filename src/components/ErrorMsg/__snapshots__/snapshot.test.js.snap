@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error message component snapshot renders the error message 1`] = `
+<div
+  className="error-msg--Gu7cE9b_"
+>
+   
+   Test error 
+   
+</div>
+`;

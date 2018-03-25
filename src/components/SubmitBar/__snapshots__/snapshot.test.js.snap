@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submit bar component snapshot renders the submit bar 1`] = `
+<div>
+  <form
+    onSubmit={undefined}
+  >
+    <div>
+      <label
+        htmlFor="textField"
+      >
+         
+        test label
+         
+      </label>
+      <input
+        id="textField"
+        onChange={undefined}
+        type="text"
+        value="testVal"
+      />
+    </div>
+    <div
+      className="error-msg--Gu7cE9b_"
+    >
+       
+       
+      test errorMsg
+       
+       
+    </div>
+    <button
+      id="sendBtn"
+      type="submit"
+    >
+       
+      Submit
+       
+    </button>
+  </form>
+</div>
+`;
