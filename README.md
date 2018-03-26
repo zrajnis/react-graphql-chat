@@ -3,10 +3,15 @@
 ### To set up the project:  
  - Install dependencies with `npm install`
  - Run in development mode with `npm run dev`  
- - Build it with `npm run build` and run it in production mode with `npm start`
 
 For development you will also need to install globally graphcool with `npm install -g graphcool` 
 
 ### Using graphcool:  
- - When you change types, run `graphcool-framework deploy`  
+ - When you change the types, run `graphcool-framework deploy`  
  - Testing queries can be done in browser by running `graphcool-framework playground`
+
+### Production  
+This project was made purely for research purposes, and of course fun.  
+If you're brave/insane enough to actually run this in production mode, keep in mind the following:  
+  - Current production scripts will enable building and serving the React code, but do not handle GraphQL  
+  - Running in prod environment should be avoided until graphcools' free tier is replaced by either paid tier or by implementing your own server.
