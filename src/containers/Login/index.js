@@ -9,7 +9,7 @@ import SubmitBar from 'components/SubmitBar'
 
 import './style.scss'
 
-class Landing extends Component {
+class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -66,7 +66,7 @@ class Landing extends Component {
     const { handleChange, name } = this.props
 
     return (
-      <div styleName='landing-container'>
+      <div styleName='login-container'>
         <SubmitBar
           buttonText='Submit'
           errorMsg={errorMsg}
@@ -81,11 +81,11 @@ class Landing extends Component {
   }
 }
 
-Landing.propTypes = {
+Login.propTypes = {
   createUserMutation: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   logUserIn: PropTypes.func.isRequired,
   name: PropTypes.string
 }
 
-export default graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' })(Landing)
+export default graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' })(Login)

@@ -1,39 +1,156 @@
-import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { split } from 'apollo-client-preset'
-import { WebSocketLink } from 'apollo-link-ws'
-import { getMainDefinition } from 'apollo-utilities'
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { graphql, compose } from 'react-apollo'
 
+import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION, SUBSCRIBE_TO_NEW_MESSAGES } from 'queries/chat'
+import { DELETE_USER_MUTATION } from 'queries/user'
 import Chat from 'containers/Chat'
+import Login from 'containers/Login'
+import withApollo from 'utils/withApollo'
 
-const wsLink = new WebSocketLink({
-  options: {
-    reconnect: true
-  },
-  uri: 'wss://subscriptions.graph.cool/v1/cjebgvb1b31q90166j61wwlp7'
-})
-const httpLink = new HttpLink({
-  uri: 'https://api.graph.cool/simple/v1/cjebgvb1b31q90166j61wwlp7'
-})
-const link = split(
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query)
+class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      content: '',
+      from: '',
+      id: null,
+      loggedIn: false
+    }
+    this.deleteUser = this.deleteUser.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleContentChange = this.handleContentChange.bind(this)
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.logUserIn = this.logUserIn.bind(this)
+    this.subscribeToNewMessages = this.subscribeToNewMessages.bind(this)
+  }
 
-    return kind === 'OperationDefinition' && operation === 'subscription'
-  },
-  wsLink,
-  httpLink
-)
+  async deleteUser () {
+    const { id } = this.state
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link
-})
+    if (id) {
+      const { deleteUserMutation } = this.props
 
-export default () =>
-  <ApolloProvider client={client}>
-    <Chat />
-  </ApolloProvider>
+      await deleteUserMutation({
+        variables: { id }
+      })
+    }
+  }
+
+  logUserIn (id) {
+    this.setState({
+      id,
+      loggedIn: true
+    })
+  }
+
+  handleContentChange ({ target: { value } }) {
+    this.setState({ content: value })
+  }
+
+  handleNameChange ({ target: { value } }) {
+    this.setState({ from: value })
+  }
+
+  async handleSubmit (e) {
+    e.preventDefault()
+    const { content, from } = this.state
+
+    if (!content.trim()) {
+      return
+    }
+
+    const { createMessageMutation } = this.props
+
+    await createMessageMutation({
+      variables: {
+        content,
+        from
+      }
+    })
+    this.setState({ content: '' })
+  }
+
+  scrollToBottom () {
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  subscribeToNewMessages () {
+    const { allMessagesQuery: { subscribeToMore } } = this.props
+
+    subscribeToMore({
+      document: SUBSCRIBE_TO_NEW_MESSAGES,
+      updateQuery: (previous, { subscriptionData }) => {
+        const newMessageLinks = [
+          ...previous.allMessages,
+          subscriptionData.data.Message.node
+        ]
+        const result = {
+          ...previous,
+          allMessages: newMessageLinks
+        }
+
+        return result
+      }
+    })
+  }
+
+  componentDidMount () {
+    const { deleteUser, subscribeToNewMessages } = this
+
+    window.onunload = () => {
+      deleteUser()
+    }
+    window.onbeforeunload = () => {
+      deleteUser()
+    }
+    subscribeToNewMessages()
+  }
+
+  render () {
+    const { handleContentChange, handleNameChange, handleSubmit, logUserIn } = this
+    const { content, from, loggedIn } = this.state
+    const { allMessages } = this.props.allMessagesQuery
+
+    if (!loggedIn) {
+      return (
+        <Login
+          handleChange={handleNameChange}
+          logUserIn={logUserIn}
+          name={from}
+        />
+      )
+    }
+
+    return (
+      <Chat
+        allMessages={allMessages}
+        content={content}
+        from={from}
+        handleChange={handleContentChange}
+        handleSubmit={handleSubmit}
+      />
+    )
+  }
+}
+
+App.propTypes = {
+  allMessagesQuery: PropTypes.shape({
+    allMessages: PropTypes.array,
+    subscribeToMore: PropTypes.func.isRequired
+  })
+}
+
+App.defaultProps = {
+  allMessagesQuery: {
+    allMessages: []
+  }
+}
+
+const composedApp = compose(
+  graphql(ALL_MESSAGES_QUERY, { name: 'allMessagesQuery' }),
+  graphql(DELETE_USER_MUTATION, { name: 'deleteUserMutation' }),
+  graphql(CREATE_MESSAGE_MUTATION, { name: 'createMessageMutation' })
+)(App)
+
+export default withApollo(composedApp)
