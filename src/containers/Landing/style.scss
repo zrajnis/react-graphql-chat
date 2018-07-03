@@ -4,11 +4,11 @@
   width: 720px;
 
   label {
-    color: white;
+    color: $white;
     display: block;
+    font-size: 22px;
     margin-bottom: 15px;
     margin-right: -120px;
-    font-size: 22px;
     text-align: center;
     text-transform: uppercase;
   }

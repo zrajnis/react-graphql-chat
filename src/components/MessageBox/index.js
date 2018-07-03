@@ -1,8 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './style.scss'
 
-export default ({ message, myMessage }) => (
+const MessageBox = ({ message, myMessage }) => (
   <div styleName={myMessage ? 'my-message-wrapper' : 'chat-message-wrapper'}>
     <div styleName='chat-message'>
       {!myMessage && <span>{message.from}:</span>}
@@ -12,3 +13,13 @@ export default ({ message, myMessage }) => (
     </div>
   </div>
 )
+
+MessageBox.propTypes = {
+  message: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    from: PropTypes.string.isRequired
+  }),
+  myMessage: PropTypes.bool.isRequired
+}
+
+export default MessageBox

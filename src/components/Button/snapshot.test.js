@@ -5,8 +5,9 @@ import Button from 'components/Button'
 describe('Button component snapshot', () => {
   it('renders the button', () => {
     const tree = renderer.create(
-      <Button id="submitBtn" > Test text </Button>
+      <Button id='submitBtn'> Test text </Button>
     ).toJSON()
+
     expect(tree).toMatchSnapshot()
   })
 })

@@ -7,6 +7,7 @@ describe('Error message component snapshot', () => {
     const tree = renderer.create(
       <ErrorMsg > Test error </ErrorMsg>
     ).toJSON()
+
     expect(tree).toMatchSnapshot()
   })
 })

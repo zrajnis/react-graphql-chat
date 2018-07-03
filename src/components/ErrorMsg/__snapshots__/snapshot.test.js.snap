@@ -4,8 +4,6 @@ exports[`Error message component snapshot renders the error message 1`] = `
 <div
   className="error-msg--Gu7cE9b_"
 >
-   
    Test error 
-   
 </div>
 `;

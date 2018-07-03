@@ -2,11 +2,12 @@
 
 exports[`Submit bar component snapshot renders the submit bar 1`] = `
 <form
-  onSubmit={undefined}
+  onSubmit={[MockFunction]}
 >
   <fieldset>
     <legend>
        
+      test legend
        
     </legend>
     <div
@@ -22,7 +23,7 @@ exports[`Submit bar component snapshot renders the submit bar 1`] = `
       <input
         className="input--3L2xwewm"
         id="textField"
-        onChange={undefined}
+        onChange={[MockFunction]}
         type="text"
         value="testVal"
       />
@@ -32,17 +33,13 @@ exports[`Submit bar component snapshot renders the submit bar 1`] = `
       id="sendBtn"
       type="submit"
     >
-       
       Submit
-       
     </button>
     <div
       className="error-msg--Gu7cE9b_"
     >
        
-       
       test errorMsg
-       
        
     </div>
   </fieldset>

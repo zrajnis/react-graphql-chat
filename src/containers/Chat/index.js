@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
 
 import { ALL_MESSAGES_QUERY, CREATE_MESSAGE_MUTATION, SUBSCRIBE_TO_NEW_MESSAGES } from 'queries/chat'
@@ -12,38 +13,44 @@ class Chat extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      from: '',
       content: '',
-      loggedIn: false,
+      from: '',
       id: null,
+      loggedIn: false
     }
     this.deleteUser = this.deleteUser.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.logUserIn = this.logUserIn.bind(this)
+    this.subscribeToNewMessages = this.subscribeToNewMessages.bind(this)
   }
 
   async deleteUser () {
     const { id } = this.state
-    id && await this.props.deleteUserMutation({
-      variables: { id },
-    })
+
+    if (id) {
+      const { deleteUserMutation } = this.props
+
+      await deleteUserMutation({
+        variables: { id }
+      })
+    }
   }
 
   logUserIn (id) {
-    this.setState({ 
+    this.setState({
       id,
-      loggedIn: true,
+      loggedIn: true
     })
   }
 
-  handleContentChange (e) {
-    this.setState({ content: e.target.value })
+  handleContentChange ({ target: { value } }) {
+    this.setState({ content: value })
   }
 
-  handleNameChange (e) {
-    this.setState({ from: e.target.value })
+  handleNameChange ({ target: { value } }) {
+    this.setState({ from: value })
   }
 
   async handleSubmit (e) {
@@ -54,8 +61,13 @@ class Chat extends Component {
       return
     }
 
-    await this.props.createMessageMutation({
-      variables: { content, from },
+    const { createMessageMutation } = this.props
+
+    await createMessageMutation({
+      variables: {
+        content,
+        from
+      }
     })
     this.setState({ content: '' })
   }
@@ -65,32 +77,35 @@ class Chat extends Component {
   }
 
   subscribeToNewMessages () {
-    this.props.allMessagesQuery.subscribeToMore({
+    const { allMessagesQuery: { subscribeToMore } } = this.props
+
+    subscribeToMore({
       document: SUBSCRIBE_TO_NEW_MESSAGES,
       updateQuery: (previous, { subscriptionData }) => {
         const newMessageLinks = [
           ...previous.allMessages,
-          subscriptionData.data.Message.node,
+          subscriptionData.data.Message.node
         ]
         const result = {
           ...previous,
-          allMessages: newMessageLinks,
+          allMessages: newMessageLinks
         }
+
         return result
-      },
+      }
     })
   }
 
   componentDidMount () {
+    const { deleteUser, subscribeToNewMessages } = this
+
     window.onunload = () => {
-      this.deleteUser()
-      return 
+      deleteUser()
     }
     window.onbeforeunload = () => {
-      this.deleteUser()
-      return 
+      deleteUser()
     }
-    this.subscribeToNewMessages()
+    subscribeToNewMessages()
   }
 
   componentDidUpdate () {
@@ -98,31 +113,55 @@ class Chat extends Component {
   }
 
   render () {
-    const allMessages = this.props.allMessagesQuery.allMessages || []
-    const submitBarProps = {
-      buttonText: 'Send',
-      errorMsg: false,
-      inputVal: this.state.content,
-      label: 'Insert a text message',
-      legend: 'Insert a text message',
-      handleChange: this.handleContentChange,
-      handleSubmit: this.handleSubmit,
+    const { handleContentChange, handleNameChange, handleSubmit, logUserIn } = this
+    const { content, from, loggedIn } = this.state
+    const { allMessages } = this.props.allMessagesQuery
+
+    if (!loggedIn) {
+      return (
+        <Landing
+          handleChange={handleNameChange}
+          logUserIn={logUserIn}
+          name={from}
+        />
+      )
     }
 
     return (
-      this.state.loggedIn ?
-        <div styleName='chat'>
-          <div styleName='message-container'>
-            {allMessages.map(message => (
-              <MessageBox key={message.id} message={message} myMessage={message.from === this.state.from}/>
-            ))}
-          </div>
-          <SubmitBar {...submitBarProps} />
-          <div ref={(el) => { this.messagesEnd = el }}></div>
+      <div styleName='chat'>
+        <div styleName='message-container'>
+          {allMessages.map(message => (
+            <MessageBox
+              key={message.id}
+              message={message}
+              myMessage={message.from === from}
+            />
+          ))}
         </div>
-        :
-        <Landing name={this.state.from} handleChange={this.handleNameChange} logUserIn={this.logUserIn} />
+        <SubmitBar
+          buttonText='Send'
+          handleChange={handleContentChange}
+          handleSubmit={handleSubmit}
+          inputVal={content}
+          label='Insert a text message'
+          legend='Insert a text message'
+        />
+        <div ref={(el) => { this.messagesEnd = el }} />
+      </div>
     )
+  }
+}
+
+Chat.propTypes = {
+  allMessagesQuery: PropTypes.shape({
+    allMessages: PropTypes.array,
+    subscribeToMore: PropTypes.func.isRequired
+  })
+}
+
+Chat.defaultProps = {
+  allMessagesQuery: {
+    allMessages: []
   }
 }
 

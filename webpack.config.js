@@ -10,71 +10,68 @@ module.exports = {
     'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src/index.js')
   ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
-    publicPath: '/',
+  module: {
+    rules: [{
+      exclude: [/node_modules/],
+      test: /\.js$/,
+      use: ['babel-loader']
+    }, {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            localIdentName: '[name]--[local]--[hash:base64:8]',
+            modules: true
+          }
+        },
+        'postcss-loader'
+        ]
+      })
+    }, {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            localIdentName: '[local]--[hash:base64:8]',
+            modules: true
+          }
+        },
+        'sass-loader',
+        {
+          loader: 'sass-resources-loader',
+          options: {
+            resources: './src/styles/resources.scss'
+          }
+        }]
+      })
+    }]
   },
-  resolve: {
-    modules: [
-      'node_modules',
-      path.join(__dirname, 'src'),
-    ],
+  output: {
+    filename: '[name].js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src/index.tpl.html'),
       filename: 'index.html',
+      template: path.join(__dirname, 'src/index.tpl.html')
     }),
-    new ExtractTextPlugin('[name].css', { allChunks: true }),
+    new ExtractTextPlugin('[name].css', { allChunks: true })
   ],
-  module: {
-    rules: [{
-      test: /\.js$/,
-      use: ['babel-loader'],
-      exclude: [/node_modules/],
-    }, {
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]--[local]--[hash:base64:8]',
-            },
-          },
-          'postcss-loader',
-        ],
-      }),
-    }, {
-      test: /\.scss$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[local]--[hash:base64:8]',
-            },
-          },
-          'sass-loader',
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: './src/styles/resources.scss',
-            },
-          },
-        ],
-      }),
-    }],
-  },
+  resolve: {
+    modules: [
+      'node_modules',
+      path.join(__dirname, 'src')
+    ]
+  }
 }

@@ -10,6 +10,7 @@ export const ALL_MESSAGES_QUERY = gql`
     }
   }
 `
+
 export const CREATE_MESSAGE_MUTATION = gql`
   mutation CreateChatMessage($content: String!, $from: String!) {
     createMessage(content: $content, from: $from) {

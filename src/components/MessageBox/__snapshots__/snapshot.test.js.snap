@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Message box component snapshot renders the message box 1`] = `
+exports[`Message box component snapshot renders the message box from logged in user 1`] = `
+<div
+  className="my-message-wrapper--2fT2gBvL"
+>
+  <div
+    className="chat-message--3HIysaJH"
+  >
+    <p>
+      test content 123
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Message box component snapshot renders the message box from other users 1`] = `
 <div
   className="chat-message-wrapper--jPabuTv7"
 >

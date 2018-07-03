@@ -17,14 +17,15 @@
 
 .chat-message-wrapper {
   .chat-message {
-    background: $bgWhite;
-    border-radius: 0 10px 10px 10px;
+    background: $bg-white;
+    border-radius: 0 10px 10px;
     color: $black;
   }
 }
 
 .my-message-wrapper {
   text-align: right;
+
   .chat-message {
     background: $blue;
     border-radius: 10px 0 10px 10px;
