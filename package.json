@@ -60,9 +60,9 @@
     "webpack": "^3.11.0"
   },
   "jest": {
-    "cacheDirectory": "./.test/cache",
+    "cacheDirectory": "<rootDir>/.test/cache",
     "moduleNameMapper": {
-      "\\.(css|scss)$": "<rootDir>/styleMock.js"
+      "\\.(css|scss)$": "<rootDir>/test/styleMock.js"
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -71,9 +71,9 @@
       "!server/**.js",
       "!setupTests.js"
     ],
-    "coverageDirectory": "./.test/coverage",
+    "coverageDirectory": "<rootDir>/.test/coverage",
     "setupFiles": [
-      "./setupTests.js"
+      "<rootDir>/test/setupTests.js"
     ],
     "testEnvironment": "node",
     "rootDir": "."
