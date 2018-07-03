@@ -66,7 +66,8 @@
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/src/**.js",
+      "**/src/components/**.js",
+      "**/src/containers/**.js",
       "!server/**.js",
       "!setupTests.js"
     ],

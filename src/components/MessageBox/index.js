@@ -18,7 +18,7 @@ MessageBox.propTypes = {
   message: PropTypes.shape({
     content: PropTypes.string.isRequired,
     from: PropTypes.string.isRequired
-  }),
+  }).isRequired,
   myMessage: PropTypes.bool.isRequired
 }
 
