@@ -25,13 +25,13 @@ class App extends Component {
     this.subscribeToNewMessages = this.subscribeToNewMessages.bind(this)
   }
 
-  async deleteUser () {
+  deleteUser () {
     const { id } = this.state
 
     if (id) {
       const { deleteUserMutation } = this.props
 
-      await deleteUserMutation({
+      deleteUserMutation({
         variables: { id }
       })
     }
@@ -69,10 +69,6 @@ class App extends Component {
       }
     })
     this.setState({ content: '' })
-  }
-
-  scrollToBottom () {
-    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
   }
 
   subscribeToNewMessages () {
@@ -136,9 +132,16 @@ class App extends Component {
 
 App.propTypes = {
   allMessagesQuery: PropTypes.shape({
-    allMessages: PropTypes.array,
+    allMessages: PropTypes.arrayOf(
+      PropTypes.shape({
+        content: PropTypes.string.isRequired,
+        from: PropTypes.string.isRequired
+      })
+    ),
     subscribeToMore: PropTypes.func.isRequired
-  })
+  }),
+  createMessageMutation: PropTypes.func.isRequired,
+  deleteUserMutation: PropTypes.func.isRequired
 }
 
 App.defaultProps = {

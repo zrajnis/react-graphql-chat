@@ -1,49 +1,29 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import MessageBox from 'components/MessageBox'
 import SubmitBar from 'components/SubmitBar'
+import MessageList from 'containers/Chat/MessageList'
 import './style.scss'
 
 class Chat extends Component {
-  constructor (props) {
-    super(props)
-    this.mapMessages = this.mapMessages.bind(this)
-    this.scrollToBottom = this.scrollToBottom.bind(this)
-  }
-
-  mapMessages () {
-    const { allMessages, from } = this.props
-
-    return allMessages.map(message => (
-      <MessageBox
-        key={message.id}
-        message={message}
-        myMessage={message.from === from}
-      />
-    ))
-  }
-
   componentDidMount () {
-    this.scrollToBottom()
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
   }
 
   componentDidUpdate () {
-    this.scrollToBottom()
-  }
-
-  scrollToBottom () {
     this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
   }
 
   render () {
-    const { mapMessages } = this
-    const { content, handleChange, handleSubmit } = this.props
+    const { allMessages, content, from, handleChange, handleSubmit } = this.props
 
     return (
       <div styleName='chat'>
         <div styleName='message-container'>
-          {mapMessages()}
+          <MessageList
+            allMessages={allMessages}
+            from={from}
+          />
         </div>
         <SubmitBar
           buttonText='Send'
@@ -60,7 +40,12 @@ class Chat extends Component {
 }
 
 Chat.propTypes = {
-  allMessages: PropTypes.array.isRequired,
+  allMessages: PropTypes.arrayOf(
+    PropTypes.shape({
+      content: PropTypes.string.isRequired,
+      from: PropTypes.string.isRequired
+    })
+  ),
   content: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,

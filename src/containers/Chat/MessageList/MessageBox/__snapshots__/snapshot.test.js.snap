@@ -2,10 +2,10 @@
 
 exports[`Message box component snapshot renders the message box from logged in user 1`] = `
 <div
-  className="my-message-wrapper--2fT2gBvL"
+  className="my-message-wrapper--h93b8ATj"
 >
   <div
-    className="chat-message--3HIysaJH"
+    className="chat-message--QnC2_lx7"
   >
     <p>
       test content 123
@@ -16,10 +16,10 @@ exports[`Message box component snapshot renders the message box from logged in u
 
 exports[`Message box component snapshot renders the message box from other users 1`] = `
 <div
-  className="chat-message-wrapper--jPabuTv7"
+  className="chat-message-wrapper--hp6HY0Bp"
 >
   <div
-    className="chat-message--3HIysaJH"
+    className="chat-message--QnC2_lx7"
   >
     <span>
       testUser
