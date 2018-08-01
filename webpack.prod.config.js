@@ -22,22 +22,6 @@ module.exports = {
         loader: 'html-loader'
       }]
     }, {
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            localIdentName: '[name]--[local]--[hash:base64:8]',
-            minimize: true,
-            modules: true
-          }
-        },
-        'postcss-loader'
-        ]
-      })
-    }, {
       test: /\.scss$/,
       use: ExtractTextPlugin.extract({
         fallback: 'style-loader',

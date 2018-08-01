@@ -12,9 +12,7 @@
     "react-hot-loader/babel",
     ["react-css-modules", {
       "filetypes": {
-        ".scss": {
-          "syntax": "postcss-scss"
-        }
+        ".scss": {}
       },
       "generateScopedName": "[local]--[hash:base64:8]"
     }]
