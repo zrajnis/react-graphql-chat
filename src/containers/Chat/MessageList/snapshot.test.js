@@ -6,13 +6,16 @@ describe('Message list component snapshot', () => {
   const from = 'testUser'
   const allMessages = [{
     content: 'test content 123',
-    from
+    from,
+    id: 1
   }, {
     content: 'test content 456',
-    from: 'testUser1'
+    from: 'testUser1',
+    id: 2
   }, {
     content: 'test content 678',
-    from: 'testUser2'
+    from: 'testUser2',
+    id: 3
   }]
 
   it('renders the message list', () => {

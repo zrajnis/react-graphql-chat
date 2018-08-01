@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Message list component snapshot renders the message list 1`] = `
-Array [
+<div
+  className="message-container--28YesOzC"
+>
   <div
     className="my-message-wrapper--h93b8ATj"
   >
@@ -12,7 +14,7 @@ Array [
         test content 123
       </p>
     </div>
-  </div>,
+  </div>
   <div
     className="chat-message-wrapper--hp6HY0Bp"
   >
@@ -27,7 +29,7 @@ Array [
         test content 456
       </p>
     </div>
-  </div>,
+  </div>
   <div
     className="chat-message-wrapper--hp6HY0Bp"
   >
@@ -42,6 +44,6 @@ Array [
         test content 678
       </p>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;

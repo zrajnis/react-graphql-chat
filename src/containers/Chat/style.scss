@@ -1,10 +1,9 @@
 .chat {
+  display: flex;
+  flex-direction: column;
   margin: 30px auto;
+  min-height: calc(100vh - 60px);
   width: 720px;
-
-  .message-container {
-    margin: 0;
-  }
 
   label {
     display: none;

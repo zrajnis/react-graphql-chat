@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import MessageBox from 'containers/Chat/MessageList/MessageBox'
+import './style.scss'
 
 const MessageList = ({ allMessages, from }) =>
-  <Fragment>
+  <div styleName='message-container'>
     {allMessages.map(message => (
       <MessageBox
         key={message.id}
@@ -12,7 +13,7 @@ const MessageList = ({ allMessages, from }) =>
         myMessage={message.from === from}
       />
     ))}
-  </Fragment>
+  </div>
 
 MessageList.propTypes = {
   allMessages: PropTypes.arrayOf(

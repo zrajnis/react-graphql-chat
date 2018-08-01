@@ -6,7 +6,6 @@ import { setTimeout } from 'timers'
 import { CREATE_USER_MUTATION } from 'queries/user'
 import { USERNAME_INVALID_PATTERN, USERNAME_INVALID_LENGTH, USERNAME_TAKEN } from 'constants/error'
 import SubmitBar from 'components/SubmitBar'
-
 import './style.scss'
 
 class Login extends Component {

@@ -19,12 +19,10 @@ class Chat extends Component {
 
     return (
       <div styleName='chat'>
-        <div styleName='message-container'>
-          <MessageList
-            allMessages={allMessages}
-            from={from}
-          />
-        </div>
+        <MessageList
+          allMessages={allMessages}
+          from={from}
+        />
         <SubmitBar
           buttonText='Send'
           handleChange={handleChange}
