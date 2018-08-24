@@ -15,13 +15,13 @@ class Chat extends Component {
   }
 
   render () {
-    const { allMessages, content, from, handleChange, handleSubmit } = this.props
+    const { allMessages, content, username, handleChange, handleSubmit } = this.props
 
     return (
       <div styleName='chat'>
         <MessageList
           allMessages={allMessages}
-          from={from}
+          username={username}
         />
         <SubmitBar
           buttonText='Send'
@@ -45,9 +45,9 @@ Chat.propTypes = {
     })
   ),
   content: PropTypes.string.isRequired,
-  from: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired
 }
 
 export default Chat

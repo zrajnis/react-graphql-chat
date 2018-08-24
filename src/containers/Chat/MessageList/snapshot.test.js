@@ -3,10 +3,10 @@ import renderer from 'react-test-renderer'
 import MessageList from 'containers/Chat/MessageList'
 
 describe('Message list component snapshot', () => {
-  const from = 'testUser'
+  const username = 'testUser'
   const allMessages = [{
     content: 'test content 123',
-    from,
+    from: username,
     id: 1
   }, {
     content: 'test content 456',
@@ -22,7 +22,7 @@ describe('Message list component snapshot', () => {
     const tree = renderer.create(
       <MessageList
         allMessages={allMessages}
-        from={from}
+        username={username}
       />
     ).toJSON()
 

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { graphql } from 'react-apollo'
 import { setTimeout } from 'timers'
 
-import { CREATE_USER_MUTATION } from 'queries/user'
 import { USERNAME_INVALID_PATTERN, USERNAME_INVALID_LENGTH, USERNAME_TAKEN } from 'constants/error'
 import SubmitBar from 'components/SubmitBar'
 import './style.scss'
@@ -12,10 +10,42 @@ class Login extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      errorMsg: ''
+      errorMsg: '',
+      name: ''
     }
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.showError = this.showError.bind(this)
+    this.validateName = this.validateName.bind(this)
+  }
+
+  handleChange ({ target: { value } }) {
+    this.setState({
+      name: value.trim()
+    })
+  }
+
+  async handleSubmit (e) {
+    e.preventDefault()
+
+    if (!this.validateName()) {
+      return
+    }
+
+    const { name } = this.state
+    const { createUser, logUserIn } = this.props
+
+    try {
+      const resp = await createUser(name)
+      const user = {
+        id: resp.data.createUser.id,
+        name
+      }
+
+      logUserIn(user)
+    } catch (e) {
+      this.showError(USERNAME_TAKEN)
+    }
   }
 
   showError (errorMsg) {
@@ -25,9 +55,9 @@ class Login extends Component {
 
   validateName () {
     const { showError } = this
-    const { name } = this.props
-    const pattern = name.trim() && name.trim().match(/^[a-zA-Z0-9]{0,}$/)
-    const length = name.trim().match(/^[a-zA-Z0-9]{0,16}$/)
+    const { name } = this.state
+    const pattern = name && name.match(/^[a-zA-Z0-9]{0,}$/)
+    const length = name.match(/^[a-zA-Z0-9]{0,16}$/)
 
     if (!pattern) {
       showError(USERNAME_INVALID_PATTERN)
@@ -38,31 +68,9 @@ class Login extends Component {
     return pattern && length
   }
 
-  async handleSubmit (e) {
-    e.preventDefault()
-
-    if (!this.validateName()) {
-      return
-    }
-
-    const name = this.props.name.trim()
-    const { createUserMutation, logUserIn } = this.props
-
-    try {
-      const resp = await createUserMutation({
-        variables: { name }
-      })
-
-      logUserIn(resp.data.createUser.id)
-    } catch (e) {
-      this.showError(USERNAME_TAKEN)
-    }
-  }
-
   render () {
-    const { handleSubmit } = this
-    const { errorMsg } = this.state
-    const { handleChange, name } = this.props
+    const { handleChange, handleSubmit } = this
+    const { errorMsg, name } = this.state
 
     return (
       <div styleName='login-container'>
@@ -81,10 +89,8 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  createUserMutation: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  logUserIn: PropTypes.func.isRequired,
-  name: PropTypes.string
+  createUser: PropTypes.func.isRequired,
+  logUserIn: PropTypes.func.isRequired
 }
 
-export default graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' })(Login)
+export default Login
