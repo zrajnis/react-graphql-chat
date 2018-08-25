@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login container snapshot renders the login container 1`] = `
+<div
+  className="login-container--2IHi7pAD"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <fieldset>
+      <legend>
+         
+        Insert username
+         
+      </legend>
+      <div
+        className="input-container--316X5DI-"
+      >
+        <label
+          htmlFor="textField"
+        >
+           
+          Choose your username
+           
+        </label>
+        <input
+          className="input--3L2xwewm"
+          id="textField"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+      <button
+        className="button--3j7htfnZ"
+        id="sendBtn"
+        type="submit"
+      >
+        Submit
+      </button>
+      
+    </fieldset>
+  </form>
+</div>
+`;

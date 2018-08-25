@@ -65,7 +65,7 @@ class Login extends Component {
       showError(USERNAME_INVALID_LENGTH)
     }
 
-    return pattern && length
+    return !!(pattern && length)
   }
 
   render () {

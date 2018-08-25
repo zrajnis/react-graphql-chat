@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chat container snapshot renders the chat container 1`] = `
+<div
+  className="chat--2BYVCiUn"
+>
+  <div
+    className="message-container--28YesOzC"
+  >
+    <div
+      className="my-message-wrapper--h93b8ATj"
+    >
+      <div
+        className="chat-message--QnC2_lx7"
+      >
+        <p>
+          test content 123
+        </p>
+      </div>
+    </div>
+    <div
+      className="chat-message-wrapper--hp6HY0Bp"
+    >
+      <div
+        className="chat-message--QnC2_lx7"
+      >
+        <span>
+          testUser1
+          :
+        </span>
+        <p>
+          test content 456
+        </p>
+      </div>
+    </div>
+    <div
+      className="chat-message-wrapper--hp6HY0Bp"
+    >
+      <div
+        className="chat-message--QnC2_lx7"
+      >
+        <span>
+          testUser2
+          :
+        </span>
+        <p>
+          test content 678
+        </p>
+      </div>
+    </div>
+  </div>
+  <form
+    onSubmit={[MockFunction]}
+  >
+    <fieldset>
+      <legend>
+         
+        Insert a text message
+         
+      </legend>
+      <div
+        className="input-container--316X5DI-"
+      >
+        <label
+          htmlFor="textField"
+        >
+           
+          Insert a text message
+           
+        </label>
+        <input
+          className="input--3L2xwewm"
+          id="textField"
+          onChange={[MockFunction]}
+          type="text"
+          value="test content"
+        />
+      </div>
+      <button
+        className="button--3j7htfnZ"
+        id="sendBtn"
+        type="submit"
+      >
+        Send
+      </button>
+      
+    </fieldset>
+  </form>
+  <div />
+</div>
+`;

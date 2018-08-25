@@ -7,9 +7,7 @@ const staticIndex = path.join(staticDir, 'index.html')
 const app = express()
 
 app.use(express.static(staticDir))
-app.use((req, res) => {
-  res.sendFile(staticIndex)
-})
+app.use((req, res) => res.sendFile(staticIndex))
 
 app.listen(port, (error) => {
   if (error) {
