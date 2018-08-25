@@ -19,19 +19,19 @@ describe('Login container test', () => {
     />
   )
 
-  const testResponse = {
+  const fakeResponse = {
     data: {
       createUser: {
         id: 'testId'
       }
     }
   }
-  const testName = 'test'
-  const testNameInvalidPattern = '__test__'
-  const testNameInvalidLength = 'thisnameistoolongtobevalid '
-  const testUser = {
-    id: testResponse.data.createUser.id,
-    name: testName
+  const fakeName = 'test'
+  const fakeNameInvalidPattern = '__test__'
+  const fakeNameInvalidLength = 'thisnameistoolongtobevalid'
+  const fakeUser = {
+    id: fakeResponse.data.createUser.id,
+    name: fakeName
   }
 
   beforeEach(() => {
@@ -43,35 +43,35 @@ describe('Login container test', () => {
   })
 
   it('Submits the valid value', async () => {
-    createUserMock.mockResolvedValue(testResponse)
-    login.find('input').simulate('change', { target: { value: testName } })
+    createUserMock.mockResolvedValue(fakeResponse)
+    login.find('input').simulate('change', { target: { value: fakeName } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
 
     expect(handleChangeSpy.calledOnce).toBe(true)
     expect(validateNameSpy.calledOnce).toBe(true)
     expect(validateNameSpy.returnValues[0]).toBe(true)
     await expect(createUserMock).toHaveBeenCalled()
-    expect(createUserMock).toHaveBeenCalledWith(testName)
+    expect(createUserMock).toHaveBeenCalledWith(fakeName)
     expect(logUserInMock).toHaveBeenCalled()
-    expect(logUserInMock).toHaveBeenCalledWith(testUser)
+    expect(logUserInMock).toHaveBeenCalledWith(fakeUser)
   })
 
   it('Shows error when username is already in use', async () => {
     createUserMock.mockRejectedValue(new Error('username taken'))
-    login.find('input').simulate('change', { target: { value: testName } })
+    login.find('input').simulate('change', { target: { value: fakeName } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
 
     expect(handleChangeSpy.calledOnce).toBe(true)
     expect(validateNameSpy.calledOnce).toBe(true)
     expect(validateNameSpy.returnValues[0]).toBe(true)
     await expect(createUserMock).toHaveBeenCalled()
-    expect(createUserMock).toHaveBeenCalledWith(testName)
+    expect(createUserMock).toHaveBeenCalledWith(fakeName)
     expect(logUserInMock).toHaveBeenCalledTimes(0)
     expect(showErrorSpy.calledOnceWith(USERNAME_TAKEN)).toBe(true)
   })
 
-  it('Shows error for name with invalid pattern', async () => {
-    login.find('input').simulate('change', { target: { value: testNameInvalidPattern } })
+  it('Shows error for name with invalid pattern', () => {
+    login.find('input').simulate('change', { target: { value: fakeNameInvalidPattern } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
 
     expect(handleChangeSpy.calledOnce).toBe(true)
@@ -80,8 +80,8 @@ describe('Login container test', () => {
     expect(showErrorSpy.calledOnceWith(USERNAME_INVALID_PATTERN)).toBe(true)
   })
 
-  it('Shows error for name with invalid length', async () => {
-    login.find('input').simulate('change', { target: { value: testNameInvalidLength } })
+  it('Shows error for name with invalid length', () => {
+    login.find('input').simulate('change', { target: { value: fakeNameInvalidLength } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
 
     expect(handleChangeSpy.calledOnce).toBe(true)
