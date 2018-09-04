@@ -1,4 +1,4 @@
-export default `
+module.exports = `
   type Message {
     content: String!
     from: String!

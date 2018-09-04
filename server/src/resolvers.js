@@ -1,4 +1,4 @@
-import { PubSub } from 'graphql-subscriptions'
+const { PubSub } = require('graphql-subscriptions')
 
 const NEW_MESSAGE = 'NEW_MESSAGE'
 const db = {
@@ -8,7 +8,7 @@ const db = {
 const pubsub = new PubSub()
 let nextUserId = 0
 
-export default {
+module.exports = {
   Mutation: {
     createMessage (root, { content, from }, context) {
       const newMessage = {
