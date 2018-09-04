@@ -152,11 +152,13 @@ App.defaultProps = {
   }
 }
 
-const composedApp = compose(
+export const BasicApp = App
+
+const ComposedApp = compose(
   graphql(ALL_MESSAGES_QUERY, { name: 'allMessagesQuery' }),
   graphql(CREATE_MESSAGE_MUTATION, { name: 'createMessageMutation' }),
   graphql(CREATE_USER_MUTATION, { name: 'createUserMutation' }),
   graphql(DELETE_USER_MUTATION, { name: 'deleteUserMutation' })
 )(App)
 
-export default withApollo(composedApp)
+export default withApollo(ComposedApp)

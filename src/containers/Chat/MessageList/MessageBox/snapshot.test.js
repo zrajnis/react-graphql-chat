@@ -1,5 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
+
 import MessageBox from 'containers/Chat/MessageList/MessageBox'
 
 describe('Message box component snapshot', () => {

@@ -19,20 +19,7 @@ describe('Login container test', () => {
     />
   )
 
-  const fakeResponse = {
-    data: {
-      createUser: {
-        id: 'testId'
-      }
-    }
-  }
   const fakeName = 'test'
-  const fakeNameInvalidPattern = '__test__'
-  const fakeNameInvalidLength = 'thisnameistoolongtobevalid'
-  const fakeUser = {
-    id: fakeResponse.data.createUser.id,
-    name: fakeName
-  }
 
   beforeEach(() => {
     createUserMock.mockReset()
@@ -43,6 +30,18 @@ describe('Login container test', () => {
   })
 
   it('Submits the valid value', async () => {
+    const fakeResponse = {
+      data: {
+        createUser: {
+          id: 'testId'
+        }
+      }
+    }
+    const fakeUser = {
+      id: fakeResponse.data.createUser.id,
+      name: fakeName
+    }
+
     createUserMock.mockResolvedValue(fakeResponse)
     login.find('input').simulate('change', { target: { value: fakeName } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
@@ -56,7 +55,7 @@ describe('Login container test', () => {
     expect(logUserInMock).toHaveBeenCalledWith(fakeUser)
   })
 
-  it('Shows error when username is already in use', async () => {
+  it('Shows an error when username is already in use', async () => {
     createUserMock.mockRejectedValue(new Error('username taken'))
     login.find('input').simulate('change', { target: { value: fakeName } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
@@ -66,11 +65,13 @@ describe('Login container test', () => {
     expect(validateNameSpy.returnValues[0]).toBe(true)
     await expect(createUserMock).toHaveBeenCalled()
     expect(createUserMock).toHaveBeenCalledWith(fakeName)
-    expect(logUserInMock).toHaveBeenCalledTimes(0)
+    expect(logUserInMock).not.toHaveBeenCalled()
     expect(showErrorSpy.calledOnceWith(USERNAME_TAKEN)).toBe(true)
   })
 
-  it('Shows error for name with invalid pattern', () => {
+  it('Shows an error for a name with invalid pattern', () => {
+    const fakeNameInvalidPattern = '__test__'
+
     login.find('input').simulate('change', { target: { value: fakeNameInvalidPattern } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
 
@@ -80,7 +81,9 @@ describe('Login container test', () => {
     expect(showErrorSpy.calledOnceWith(USERNAME_INVALID_PATTERN)).toBe(true)
   })
 
-  it('Shows error for name with invalid length', () => {
+  it('Shows an error for a name with invalid length', () => {
+    const fakeNameInvalidLength = 'thisnameistoolongtobevalid'
+
     login.find('input').simulate('change', { target: { value: fakeNameInvalidLength } })
     login.find('button').simulate('submit', { target: login.find('button').get(0) })
 

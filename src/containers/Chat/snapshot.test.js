@@ -1,5 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
+
 import Chat from 'containers/Chat'
 
 describe('Chat container snapshot', () => {

@@ -6,17 +6,19 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { split } from 'apollo-client-preset'
 import { WebSocketLink } from 'apollo-link-ws'
+import fetch from 'unfetch'
 
-const wsLink = new WebSocketLink({
+const wsLink = process.browser ? new WebSocketLink({
   options: {
     reconnect: true
   },
-  uri: 'wss://subscriptions.graph.cool/v1/cjebgvb1b31q90166j61wwlp7'
-})
+  uri: 'wss://subscriptions.graph.cool/v1/cjlmuwvso0izh0112alpa7uj9'
+}) : null
 const httpLink = new HttpLink({
-  uri: 'https://api.graph.cool/simple/v1/cjebgvb1b31q90166j61wwlp7'
+  fetch: process.browser ? undefined : fetch,
+  uri: 'https://api.graph.cool/simple/v1/cjlmuwvso0izh0112alpa7uj9'
 })
-const link = split(
+const link = process.browser ? split(
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query)
 
@@ -24,7 +26,7 @@ const link = split(
   },
   wsLink,
   httpLink
-)
+) : httpLink
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),

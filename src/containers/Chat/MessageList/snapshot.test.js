@@ -1,5 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
+
 import MessageList from 'containers/Chat/MessageList'
 
 describe('Message list component snapshot', () => {

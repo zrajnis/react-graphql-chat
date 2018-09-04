@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
+    "apollo-link-schema": "^1.1.0",
     "babel-eslint": "^8.2.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -16,6 +17,7 @@
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "extract-hoc": "0.0.5",
+    "graphql-tools": "^3.1.1",
     "jest": "^22.4.2",
     "jsdom": "12.0.0",
     "jsdom-global": "3.0.2",
@@ -24,6 +26,7 @@
     "react-test-renderer": "^16.2.0",
     "sass-lint": "^1.12.1",
     "sinon": "^6.1.5",
+    "unfetch": "^3.1.1",
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
@@ -63,6 +66,7 @@
     "collectCoverageFrom": [
       "**/src/components/**.js",
       "**/src/containers/**.js",
+      "**/src/queries/**.js",
       "!server/**.js",
       "!setupTests.js"
     ],

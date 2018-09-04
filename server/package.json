@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "chat-server",
   "version": "1.0.0",
-  "description": "My Graphcool Service"
+  "description": "practice chat server"
 }
