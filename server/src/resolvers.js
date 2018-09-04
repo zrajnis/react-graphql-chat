@@ -1,6 +1,6 @@
 const { PubSub } = require('graphql-subscriptions')
 
-const NEW_MESSAGE = 'NEW_MESSAGE'
+const NEW_MESSAGE_CREATED = 'NEW_MESSAGE_CREATED'
 const db = {
   messages: [],
   users: []
@@ -18,7 +18,7 @@ module.exports = {
       }
 
       db.messages.push(newMessage)
-      pubsub.publish(NEW_MESSAGE, { messageCreated: newMessage })
+      pubsub.publish(NEW_MESSAGE_CREATED, newMessage)
 
       return newMessage
     },
@@ -51,7 +51,12 @@ module.exports = {
   },
   Subscription: {
     newMessage: {
-      subscribe: () => pubsub.asyncIterator(NEW_MESSAGE)
+      resolve (payload, args, context, info) {
+        return payload
+      },
+      subscribe () {
+        return pubsub.asyncIterator(NEW_MESSAGE_CREATED)
+      }
     }
   }
 }

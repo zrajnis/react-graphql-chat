@@ -22,12 +22,10 @@ export const CREATE_MESSAGE_MUTATION = gql`
 
 export const SUBSCRIBE_TO_NEW_MESSAGES = gql`
   subscription NewMessagesSubscription {
-    newMessage(filter: { mutation_in: [CREATED] }) {
-      node {
-        content
-        from
-        id
-      }
+    newMessage {
+      content
+      from
+      id
     }
   }
 `

@@ -81,7 +81,7 @@ class App extends Component {
       updateQuery: (previous, { subscriptionData }) => {
         const newMessageLinks = [
           ...previous.allMessages,
-          subscriptionData.data.Message.node
+          subscriptionData.data.newMessage
         ]
         const result = {
           ...previous,
