@@ -22,7 +22,6 @@ describe('Message GraphQL queries test', () => {
     })
 
     expect(createMessage).toHaveProperty('content')
-    expect(createMessage).toHaveProperty('createdAt')
     expect(createMessage).toHaveProperty('from')
     expect(createMessage).toHaveProperty('id')
   })

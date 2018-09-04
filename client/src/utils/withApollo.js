@@ -1,22 +1,21 @@
 import React from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { ApolloClient } from 'apollo-client'
+import { ApolloClient, HttpLink, InMemoryCache, split } from 'apollo-boost'
 import { getMainDefinition } from 'apollo-utilities'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { split } from 'apollo-client-preset'
 import { WebSocketLink } from 'apollo-link-ws'
 import fetch from 'unfetch'
+
+const { SERVER_URL, SUBSCRIPTION_URL } = process.env
 
 const wsLink = process.browser ? new WebSocketLink({
   options: {
     reconnect: true
   },
-  uri: 'wss://subscriptions.graph.cool/v1/cjlmuwvso0izh0112alpa7uj9'
+  uri: SUBSCRIPTION_URL
 }) : null
 const httpLink = new HttpLink({
   fetch: process.browser ? undefined : fetch,
-  uri: 'https://api.graph.cool/simple/v1/cjlmuwvso0izh0112alpa7uj9'
+  uri: SERVER_URL
 })
 const link = process.browser ? split(
   ({ query }) => {

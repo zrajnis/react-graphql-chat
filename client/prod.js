@@ -1,7 +1,9 @@
+require('dotenv-safe').load()
+
 const express = require('express')
 const path = require('path')
 
-const port = process.env.PORT || 3000
+const { PORT } = process.env
 const staticDir = path.join(__dirname, 'dist')
 const staticIndex = path.join(staticDir, 'index.html')
 const app = express()
@@ -9,10 +11,10 @@ const app = express()
 app.use(express.static(staticDir))
 app.use((req, res) => res.sendFile(staticIndex))
 
-app.listen(port, (error) => {
+app.listen(PORT, (error) => {
   if (error) {
     console.error(error)
   } else {
-    console.log(`Listening on port ${port}`)
+    console.log(`Listening on port ${PORT}`)
   }
 })

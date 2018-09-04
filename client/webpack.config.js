@@ -1,3 +1,5 @@
+require('dotenv-safe').load()
+
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -45,6 +47,10 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new webpack.EnvironmentPlugin([
+      'SERVER_URL',
+      'SUBSCRIPTION_URL'
+    ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from 'apollo-boost'
 
 export const CREATE_USER_MUTATION = gql`
   mutation CreateUser($name: String!) {
