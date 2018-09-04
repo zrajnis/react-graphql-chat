@@ -1,3 +1,0 @@
-targets:
-  chat-server: shared-eu-west-1/cjlmuwvso0izh0112alpa7uj9
-  default: chat-server

@@ -1,5 +1,44 @@
 {
-  "name": "chat-server",
-  "version": "1.0.0",
-  "description": "practice chat server"
+  "name": "react-graphql-chat-server",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.18.4",
+    "sinon": "^6.1.5"
+  },
+  "dependencies": {
+    "apollo-link-ws": "^1.0.7",
+    "apollo-server-express": "^2.0.5",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-module-resolver": "^3.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "dotenv-safe": "^6.0.0",
+    "express": "^4.16.2",
+    "graphql": "^0.13.1",
+    "graphql-subscriptions": "^0.5.8",
+    "graphql-tools": "^3.1.1",
+    "subscriptions-transport-ws": "^0.9.6"
+  },
+  "engines": {
+    "node": "8",
+    "npm": "5"
+  },
+  "scripts": {
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "node prod.js",
+    "dev": "nodemon -q -I -e js,json -i package.json -- -r babel-register ./src/index.js"
+  }
 }
