@@ -5,12 +5,9 @@
   "devDependencies": {
     "eslint": "^4.18.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-config-standard-react": "^6.0.0",
-    "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "nodemon": "^1.18.4",
     "sinon": "^6.1.5"
@@ -28,8 +25,7 @@
     "express": "^4.16.2",
     "graphql": "^0.13.1",
     "graphql-subscriptions": "^0.5.8",
-    "graphql-tools": "^3.1.1",
-    "subscriptions-transport-ws": "^0.9.6"
+    "graphql-tools": "^3.1.1"
   },
   "engines": {
     "node": "8",
@@ -38,7 +34,6 @@
   "scripts": {
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "node prod.js",
     "dev": "nodemon -q -I -e js,json -i package.json -- -r babel-register ./src/index.js"
   }
 }

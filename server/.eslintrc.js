@@ -2,9 +2,7 @@ module.exports = {
   env: {
     'browser': true
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['standard'],
   rules: {
     'max-len': ['error', 120],
     'newline-after-var': [2, 'always'],
