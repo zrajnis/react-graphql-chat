@@ -3,14 +3,15 @@ require('dotenv-safe').load()
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  devtool: 'source-map',
   entry: [
     'babel-polyfill',
     path.join(__dirname, 'src/index.js')
   ],
+  mode: 'production',
   module: {
     rules: [{
       exclude: /node_modules/,
@@ -25,9 +26,9 @@ module.exports = {
       }]
     }, {
       test: /\.scss$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
           loader: 'css-loader',
           options: {
             importLoaders: 1,
@@ -42,9 +43,18 @@ module.exports = {
           options: {
             resources: './src/styles/resources.scss'
           }
-        }]
-      })
+        }
+      ]
     }]
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin()
+    ],
+    splitChunks: {
+      chunks: 'all',
+      maxSize: 240000
+    }
   },
   output: {
     filename: '[name]-[hash].js',
@@ -56,18 +66,13 @@ module.exports = {
       'SERVER_URL',
       'SUBSCRIPTION_URL'
     ]),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
       filename: './index.html',
       template: './src/index.tpl.html'
     }),
-    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
-    new webpack.optimize.CommonsChunkPlugin('common'),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    }),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new MiniCssExtractPlugin({
+      filename: '[name]-[contenthash].css'
+    })
   ],
   resolve: {
     modules: [
