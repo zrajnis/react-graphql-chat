@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
