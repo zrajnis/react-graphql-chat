@@ -3,6 +3,7 @@ require('dotenv-safe').load()
 const http = require('http')
 const { ApolloServer } = require('apollo-server-express')
 const express = require('express')
+const helmet = require('helmet')
 const cors = require('cors')
 const schema = require('schema')
 
@@ -10,6 +11,7 @@ const { CLIENT_URL, PORT } = process.env
 const app = express()
 const server = new ApolloServer({ schema })
 
+app.use(helmet())
 app.use(cors({
   credentials: true,
   origin: CLIENT_URL

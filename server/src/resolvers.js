@@ -26,7 +26,7 @@ module.exports = {
       return createdMessage
     },
     createUser (root, { name }, context) {
-      const userExists = db.users.find(user => user.name === name)
+      const userExists = db.users.find(user => user.name.toLowerCase() === name.toLowerCase())
 
       if (userExists) {
         throw new Error('Username taken')
