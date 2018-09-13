@@ -5,48 +5,77 @@ exports[`Chat container snapshot renders the chat container 1`] = `
   className="chat--2BYVCiUn"
 >
   <div
-    className="message-container--28YesOzC"
+    className="row--vs3UeeEQ"
   >
-    <div
-      className="my-message-wrapper--h93b8ATj"
+    <ul
+      className="message-list--3MC3ek3B"
     >
-      <div
-        className="chat-message--QnC2_lx7"
+      <li
+        className="my-message-wrapper--h93b8ATj"
       >
-        <p>
-          test content 123
-        </p>
-      </div>
-    </div>
+        <div
+          className="chat-message--QnC2_lx7"
+        >
+          <p>
+            test content 123
+          </p>
+        </div>
+      </li>
+      <li
+        className="chat-message-wrapper--hp6HY0Bp"
+      >
+        <div
+          className="chat-message--QnC2_lx7"
+        >
+          <span>
+            testUser1
+            :
+          </span>
+          <p>
+            test content 456
+          </p>
+        </div>
+      </li>
+      <li
+        className="chat-message-wrapper--hp6HY0Bp"
+      >
+        <div
+          className="chat-message--QnC2_lx7"
+        >
+          <span>
+            testUser2
+            :
+          </span>
+          <p>
+            test content 678
+          </p>
+        </div>
+      </li>
+      <li />
+    </ul>
     <div
-      className="chat-message-wrapper--hp6HY0Bp"
+      className="user-list-wrapper--3Kx3AgCl"
     >
-      <div
-        className="chat-message--QnC2_lx7"
+      <em
+        className="user-list-title--3aw-OTIE"
       >
-        <span>
-          testUser1
-          :
-        </span>
-        <p>
-          test content 456
-        </p>
-      </div>
-    </div>
-    <div
-      className="chat-message-wrapper--hp6HY0Bp"
-    >
-      <div
-        className="chat-message--QnC2_lx7"
+        USERS ONLINE
+      </em>
+      <ul
+        className="user-list--AtQMgPsm"
       >
-        <span>
-          testUser2
-          :
-        </span>
-        <p>
-          test content 678
-        </p>
-      </div>
+        <li
+          className="username--ThdCkMwR"
+        >
+          test1
+        </li>
+        <li
+          className="my-username--2An5F1qD"
+        >
+          testUser
+           (You)
+        </li>
+      </ul>
     </div>
   </div>
   <form
@@ -86,6 +115,5 @@ exports[`Chat container snapshot renders the chat container 1`] = `
       
     </fieldset>
   </form>
-  <div />
 </div>
 `;

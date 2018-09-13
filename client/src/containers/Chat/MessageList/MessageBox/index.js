@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import './style.scss'
 
 const MessageBox = ({ message, myMessage }) => (
-  <div styleName={myMessage ? 'my-message-wrapper' : 'chat-message-wrapper'}>
+  <li styleName={myMessage ? 'my-message-wrapper' : 'chat-message-wrapper'}>
     <div styleName='chat-message'>
       {!myMessage && <span>{message.from}:</span>}
       <p>
         {message.content}
       </p>
     </div>
-  </div>
+  </li>
 )
 
 MessageBox.propTypes = {

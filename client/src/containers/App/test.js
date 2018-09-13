@@ -14,6 +14,11 @@ describe('App container test', () => {
     allMessages: [],
     subscribeToMore: subscribeToMoreMock
   }
+  const allUsersQuery = {
+    allUsers: [],
+    subscribeToMore: subscribeToMoreMock
+  }
+  const windowEvents = {}
 
   const fakeName = 'fakeName'
   const fakeUser = {
@@ -21,19 +26,31 @@ describe('App container test', () => {
     name: fakeName
   }
 
-  beforeEach(() => {
-    createMessageMutationMock.mockReset()
-    createUserMutationMock.mockReset()
-    deleteUserMutationMock.mockReset()
-    subscribeToMoreMock.mockReset()
+  const mountApp = () => {
     app = shallow(
       <BasicApp
         allMessagesQuery={allMessagesQuery}
+        allUsersQuery={allUsersQuery}
         createMessageMutation={createMessageMutationMock}
         createUserMutation={createUserMutationMock}
         deleteUserMutation={deleteUserMutationMock}
       />
     )
+  }
+
+  window.addEventListener = jest.fn().mockImplementation((event, cb) => {
+    windowEvents[event] = cb
+  })
+  window.removeEventListener = jest.fn().mockImplementation((event, cb) => {
+    delete windowEvents[event]
+  })
+
+  beforeEach(() => {
+    createMessageMutationMock.mockReset()
+    createUserMutationMock.mockReset()
+    deleteUserMutationMock.mockReset()
+    subscribeToMoreMock.mockReset()
+    mountApp()
   })
 
   it('Renders the Chat container when user logs in', () => {
@@ -104,13 +121,35 @@ describe('App container test', () => {
     expect(app.state().message).toBe(' ')
   })
 
-  it('Submits to new messages and binds deleteUser when component mounts', () => {
-    app.instance().logUserIn(fakeUser)
-    window.onunload()
-    app.instance().logUserIn(fakeUser)
-    window.onbeforeunload()
+  it('Initializes subscriptions and binds deleteUser when component mounts', () => {
+    expect(subscribeToMoreMock).toHaveBeenCalledTimes(3)
+  })
 
-    expect(subscribeToMoreMock).toHaveBeenCalled()
+  it('Binds deleteUser when user logs in', () => {
+    app.instance().logUserIn(fakeUser)
+
+    expect(typeof windowEvents.beforeunload).toBe('function')
+    expect(typeof windowEvents.unload).toBe('function')
+  })
+
+  it('Deletes a user when unload or beforeunload window methods are called', () => {
+    const fakeEvent = {
+      preventDefault: jest.fn(),
+      target: {
+        value: {}
+      }
+    }
+
+    app.instance().logUserIn(fakeUser)
+    windowEvents.beforeunload(fakeEvent)
+
+    expect(windowEvents.unload).toBe(undefined)
+
+    mountApp()
+    app.instance().logUserIn(fakeUser)
+    windowEvents.unload(fakeEvent)
+
+    expect(windowEvents.beforeunload).toBe(undefined)
     expect(deleteUserMutationMock).toHaveBeenCalledTimes(2)
   })
 })

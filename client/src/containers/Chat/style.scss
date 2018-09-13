@@ -1,11 +1,17 @@
 .chat {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 60px);
   margin: 30px auto;
-  min-height: calc(100vh - 60px);
-  width: 720px;
+  width: 920px;
 
   label {
     display: none;
   }
+}
+
+.row {
+  display: flex;
+  height: calc(100vh - 121px);
+  width: 100%;
 }

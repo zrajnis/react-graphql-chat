@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Message list component snapshot renders the message list 1`] = `
-<div
-  className="message-container--28YesOzC"
+<ul
+  className="message-list--3MC3ek3B"
 >
-  <div
+  <li
     className="my-message-wrapper--h93b8ATj"
   >
     <div
@@ -14,8 +14,8 @@ exports[`Message list component snapshot renders the message list 1`] = `
         test content 123
       </p>
     </div>
-  </div>
-  <div
+  </li>
+  <li
     className="chat-message-wrapper--hp6HY0Bp"
   >
     <div
@@ -29,8 +29,8 @@ exports[`Message list component snapshot renders the message list 1`] = `
         test content 456
       </p>
     </div>
-  </div>
-  <div
+  </li>
+  <li
     className="chat-message-wrapper--hp6HY0Bp"
   >
     <div
@@ -44,6 +44,7 @@ exports[`Message list component snapshot renders the message list 1`] = `
         test content 678
       </p>
     </div>
-  </div>
-</div>
+  </li>
+  <li />
+</ul>
 `;

@@ -1,6 +1,6 @@
 const { PubSub } = require('graphql-subscriptions')
+const { MESSAGE_CREATED, USER_CREATED, USER_DELETED } = require('const')
 
-const NEW_MESSAGE_CREATED = 'NEW_MESSAGE_CREATED'
 const db = {
   messages: [],
   users: []
@@ -11,34 +11,50 @@ let nextUserId = 0
 module.exports = {
   Mutation: {
     createMessage (root, { content, from }, context) {
-      const newMessage = {
+      const createdMessage = {
         content,
         from,
-        id: db.messages.length
+        id: String(db.messages.length)
       }
 
-      db.messages.push(newMessage)
-      pubsub.publish(NEW_MESSAGE_CREATED, newMessage)
+      db.messages = [
+        ...db.messages,
+        createdMessage
+      ]
+      pubsub.publish(MESSAGE_CREATED, createdMessage)
 
-      return newMessage
+      return createdMessage
     },
     createUser (root, { name }, context) {
-      const newUser = {
-        id: nextUserId,
+      const userExists = db.users.find(user => user.name === name)
+
+      if (userExists) {
+        throw new Error('Username taken')
+      }
+
+      const createdUser = {
+        id: String(nextUserId),
         name
       }
 
       nextUserId++
-      db.users.push(newUser)
+      db.users = [
+        ...db.users,
+        createdUser
+      ]
+      pubsub.publish(USER_CREATED, createdUser)
 
-      return newUser
+      return createdUser
     },
     deleteUser (root, { id }, context) {
-      const targetUser = db.users.find(user => user.id === id)
+      const deletedUser = db.users.find(user => user.id === id)
 
-      db.users.splice(db.users.indexOf(targetUser), 1)
+      db.users = [
+        ...db.users.filter(user => user.id !== id)
+      ]
+      pubsub.publish(USER_DELETED, deletedUser)
 
-      return targetUser
+      return deletedUser
     }
   },
   Query: {
@@ -50,12 +66,28 @@ module.exports = {
     }
   },
   Subscription: {
-    newMessage: {
+    createdMessage: {
       resolve (payload, args, context, info) {
         return payload
       },
       subscribe () {
-        return pubsub.asyncIterator(NEW_MESSAGE_CREATED)
+        return pubsub.asyncIterator(MESSAGE_CREATED)
+      }
+    },
+    createdUser: {
+      resolve (payload, args, context, info) {
+        return payload
+      },
+      subscribe () {
+        return pubsub.asyncIterator(USER_CREATED)
+      }
+    },
+    deletedUser: {
+      resolve (payload, args, context, info) {
+        return payload
+      },
+      subscribe () {
+        return pubsub.asyncIterator(USER_DELETED)
       }
     }
   }

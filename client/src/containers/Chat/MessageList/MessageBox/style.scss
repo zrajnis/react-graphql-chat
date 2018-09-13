@@ -16,6 +16,8 @@
 }
 
 .chat-message-wrapper {
+  display: block;
+
   .chat-message {
     background: $bg-white;
     border-radius: 0 10px 10px;

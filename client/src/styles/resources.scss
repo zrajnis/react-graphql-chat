@@ -8,25 +8,31 @@ $white: #fff;
 
 html {
   background: $black;
+}
 
-  body {
+body {
+  margin: 0;
+  padding: 0;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+form {
+  fieldset {
+    border: 0;
     margin: 0;
     padding: 0;
-
-    * {
-      box-sizing: border-box;
-    }
-
-    form {
-      fieldset {
-        border: 0;
-        margin: 0;
-        padding: 0;
-      }
-
-      legend {
-        visibility: hidden;
-      }
-    }
   }
+
+  legend {
+    visibility: hidden;
+  }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }

@@ -1,0 +1,25 @@
+.user-list-wrapper {
+  border: 1px solid $white;
+  width: 200px;
+}
+
+.user-list {
+  height: calc(100vh - 158px);
+  overflow-y: auto;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.user-list-title {
+  background: $blue;
+  border-bottom: 1px solid $white;
+  color: $white;
+  display: block;
+  font-style: normal;
+  height: 30px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  padding: 5px 0;
+  text-align: center;
+  width: 100%;
+}

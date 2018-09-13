@@ -22,6 +22,8 @@ module.exports = `
   }
 
   type Subscription {
-    newMessage: Message
+    createdMessage: Message
+    createdUser: User
+    deletedUser: User
   }
 `

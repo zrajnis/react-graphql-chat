@@ -20,9 +20,9 @@ export const CREATE_MESSAGE_MUTATION = gql`
   }
 `
 
-export const SUBSCRIBE_TO_NEW_MESSAGES = gql`
-  subscription NewMessagesSubscription {
-    newMessage {
+export const SUBSCRIBE_TO_CREATED_MESSAGES = gql`
+  subscription CreatedMessagesSubscription {
+    createdMessage {
       content
       from
       id

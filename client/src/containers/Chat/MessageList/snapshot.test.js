@@ -8,23 +8,26 @@ describe('Message list component snapshot', () => {
   const allMessages = [{
     content: 'test content 123',
     from: username,
-    id: 1
+    id: '1'
   }, {
     content: 'test content 456',
     from: 'testUser1',
-    id: 2
+    id: '2'
   }, {
     content: 'test content 678',
     from: 'testUser2',
-    id: 3
+    id: '3'
   }]
+  const createNodeMock = () => ({
+    scrollIntoView () {}
+  })
 
   it('renders the message list', () => {
     const tree = renderer.create(
       <MessageList
         allMessages={allMessages}
         username={username}
-      />
+      />, { createNodeMock }
     ).toJSON()
 
     expect(tree).toMatchSnapshot()

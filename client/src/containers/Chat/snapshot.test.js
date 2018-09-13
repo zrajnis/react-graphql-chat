@@ -9,15 +9,22 @@ describe('Chat container snapshot', () => {
   const allMessages = [{
     content: 'test content 123',
     from: username,
-    id: 1
+    id: '1'
   }, {
     content: 'test content 456',
     from: 'testUser1',
-    id: 2
+    id: '2'
   }, {
     content: 'test content 678',
     from: 'testUser2',
-    id: 3
+    id: '3'
+  }]
+  const allUsers = [{
+    id: '1',
+    name: 'test1'
+  }, {
+    id: '2',
+    name: username
   }]
   const content = 'test content'
   const createNodeMock = () => ({
@@ -28,6 +35,7 @@ describe('Chat container snapshot', () => {
     const tree = renderer.create(
       <Chat
         allMessages={allMessages}
+        allUsers={allUsers}
         content={content}
         handleChange={mockFn}
         handleSubmit={mockFn}

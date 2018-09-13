@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User list component snapshot renders the user list 1`] = `
+<div
+  className="user-list-wrapper--3Kx3AgCl"
+>
+  <em
+    className="user-list-title--3aw-OTIE"
+  >
+    USERS ONLINE
+  </em>
+  <ul
+    className="user-list--AtQMgPsm"
+  >
+    <li
+      className="username--ThdCkMwR"
+    >
+      testUser1
+    </li>
+    <li
+      className="my-username--2An5F1qD"
+    >
+      testUser
+       (You)
+    </li>
+    <li
+      className="username--ThdCkMwR"
+    >
+      testUser2
+    </li>
+  </ul>
+</div>
+`;

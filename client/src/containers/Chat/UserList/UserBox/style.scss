@@ -1,0 +1,16 @@
+.username,
+.my-username {
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.username {
+  color: $bg-white;
+}
+
+.my-username {
+  color: $red;
+}

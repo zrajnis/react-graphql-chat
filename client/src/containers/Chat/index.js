@@ -1,47 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import SubmitBar from 'components/SubmitBar'
 import MessageList from 'containers/Chat/MessageList'
+import SubmitBar from 'components/SubmitBar'
+import UserList from 'containers/Chat/UserList'
 import './style.scss'
 
-class Chat extends Component {
-  componentDidMount () {
-    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  componentDidUpdate () {
-    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  render () {
-    const { allMessages, content, username, handleChange, handleSubmit } = this.props
-
-    return (
-      <div styleName='chat'>
-        <MessageList
-          allMessages={allMessages}
-          username={username}
-        />
-        <SubmitBar
-          buttonText='Send'
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          inputVal={content}
-          label='Insert a text message'
-          legend='Insert a text message'
-        />
-        <div ref={(el) => { this.messagesEnd = el }} />
-      </div>
-    )
-  }
-}
+const Chat = ({ allMessages, allUsers, content, username, handleChange, handleSubmit }) =>
+  <div styleName='chat'>
+    <div styleName='row'>
+      <MessageList
+        allMessages={allMessages}
+        username={username}
+      />
+      <UserList
+        allUsers={allUsers}
+        username={username}
+      />
+    </div>
+    <SubmitBar
+      buttonText='Send'
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      inputVal={content}
+      label='Insert a text message'
+      legend='Insert a text message'
+    />
+  </div>
 
 Chat.propTypes = {
   allMessages: PropTypes.arrayOf(
     PropTypes.shape({
       content: PropTypes.string.isRequired,
-      from: PropTypes.string.isRequired
+      from: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired
+    })
+  ),
+  allUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
     })
   ),
   content: PropTypes.string.isRequired,

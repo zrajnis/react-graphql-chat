@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User box component snapshot renders the user box for a logged in user 1`] = `
+<li
+  className="my-username--2An5F1qD"
+>
+  testUser
+   (You)
+</li>
+`;
+
+exports[`User box component snapshot renders the user box for another user 1`] = `
+<li
+  className="username--ThdCkMwR"
+>
+  testUser
+</li>
+`;

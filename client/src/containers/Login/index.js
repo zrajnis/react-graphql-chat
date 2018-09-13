@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { setTimeout } from 'timers'
 
 import { USERNAME_INVALID_PATTERN, USERNAME_INVALID_LENGTH, USERNAME_TAKEN } from 'constants/error'
 import SubmitBar from 'components/SubmitBar'
@@ -32,6 +31,7 @@ class Login extends Component {
       return
     }
 
+    const { showError } = this
     const { name } = this.state
     const { createUser, logUserIn } = this.props
 
@@ -44,7 +44,7 @@ class Login extends Component {
 
       logUserIn(user)
     } catch (e) {
-      this.showError(USERNAME_TAKEN)
+      showError(USERNAME_TAKEN)
     }
   }
 
